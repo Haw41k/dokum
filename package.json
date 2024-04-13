@@ -1,0 +1,25 @@
+{
+  "name": "dokum",
+  "displayName": "dokum",
+  "description": "dokum template",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "dokum",
+      "aliases": ["dokum", "dokum"],
+      "extensions": [".dok"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "dokum",
+      "scopeName": "source.dokum",
+      "path": "./syntaxes/dokum.tmLanguage.json"
+    }]
+  }
+}

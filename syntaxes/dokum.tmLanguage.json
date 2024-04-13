@@ -1,0 +1,140 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "dokum",
+	"scopeName": "source.dokum",
+	"patterns": [
+		{
+			"include": "#cmd"
+		},
+		{
+			"include": "#fields"
+		},
+		{
+			"include": "#printcmd"
+		},
+		{
+			"include": "#paragraph"
+		},
+		{
+			"include": "#comments"
+		}
+		
+	],
+	"repository": {
+		"cmd": {
+			"match": "(?i)^\\s*((<+#>+)|(#))(abzac|average|autoff|call|copies|counter|define|extend|fillchar|filling|footer|header|id|idle|if|elseif|else|endif|include|insert|linefeed|newpage|onetime|pagesize|pass|picture|processor|quantity[*]?|source|stop|sum[*]?|table|tearline|text into|endtext|tokenize|undef|while|enddo|width)((\\s+\\S*)*)$",
+			"captures": {
+				"2": {
+					"name": "variable.other.dokum"
+				},
+				"3": {
+					"name": "keyword.control.dokum"
+				},
+				"4": {
+					"name": "keyword.control.dokum"
+				},
+				"5": {
+					"name":"variable.parameter.dokum",
+					"patterns": [
+						{
+							"include": "#numbers"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#operators"
+						},
+						{
+							"include": "#cmd-operators"
+						},
+						{
+							"include": "#align-text"
+						}
+					]
+				}
+			}
+		},
+		"paragraph": {
+			"contentName": "string.quoted.other.dokum",
+			"begin": "\\s*(\\^)(@|\\$|&|%)?",
+			"end": "(\\^[^>@$&%])",
+			"patterns": [
+				{
+					"include": "#cmd"
+				},
+				{
+					"include": "#printcmd"
+				},
+				{
+					"include": "#fields"
+				},
+				{
+					"include": "#numbers"
+				},
+				{
+					"include": "#comments"
+				}
+			]
+		},
+		"comments": {
+			"name": "comment.line.semicolon.dokum",
+			"match": "^\\s*;.*"
+		},
+		"numbers": {
+			"name": "constant.numeric.dokum",
+			"match": "\\d"
+		},
+		"fields": {
+			"match": "<+[^<>]*>+|\\[+[^\\[\\]]*\\]+|{+[^{}]*}+",
+			"name": "variable.other.dokum",
+			"captures": {
+				"0": {
+					"patterns": [
+						{
+							"include": "#operators"
+						},
+						{
+							"include": "#numbers"
+						},
+						{
+							"include": "#align-text"
+						}
+					]
+				}
+			}
+		},
+		"printcmd": {
+			"match": "~[^~]+~",
+			"name": "keyword.other.dokum",
+			"captures": {
+				"0": {
+					"patterns": [
+						{
+							"include": "#numbers"
+						},
+						{
+							"include": "#operators"
+						}
+					]
+				}
+			}
+		},
+		"strings": {
+			"name":"string.quoted.dokum",
+			"match": "(\"[^\"]*\")|('[^']*')"
+		},
+		"operators": {
+			"name":"keyword.operator.dokum",
+			"match": "[+\\-,\\/*=:!|.()%]"
+		},
+		"cmd-operators": {
+			"name":"keyword.operator.dokum",
+			"match": "[{}<>]"
+		},
+		"align-text": {
+			"name": "keyword.operator.dokum",
+			"match": "[@$%&]"
+		}
+	}
+}
